@@ -6,10 +6,19 @@ import CityListSkeleton from '@/components/CityListSkeleton.vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ref, reactive, toRefs, onMounted } from 'vue'
+import type { city } from '@/shared'
+
+interface searchState {
+  searchQuery: string
+  mapboxSearchResult: city | undefined | any
+  searchError: boolean
+  searchLoading: boolean
+  highlightedIndex: number
+}
 
 const router = useRouter()
 const searchInput = ref()
-const state = reactive({
+const state: searchState = reactive({
   searchQuery: '',
   mapboxSearchResult: undefined,
   searchError: false,
@@ -30,7 +39,7 @@ const {
 } = toRefs(state)
 
 let queryTimeout: number | undefined
-const waitTime = 484
+const waitTime: number = 484
 function getSearchResult() {
   clearTimeout(queryTimeout)
   queryTimeout = setTimeout(async () => {
@@ -46,7 +55,7 @@ function getSearchResult() {
         )
 
         state.mapboxSearchResult = data.features
-        // console.log(state.mapboxSearchResult)
+        console.log(state.mapboxSearchResult)
       } catch {
         state.searchError = true
       } finally {
@@ -58,16 +67,16 @@ function getSearchResult() {
   }, waitTime)
 }
 
-function previewCity(payload: any) {
+function previewCity(payload: city) {
   const [city, state] = payload.place_name.split(',')
   const { coordinates } = payload.geometry
   const [lng, lat] = coordinates
+  const params: any = { city: city.replaceAll(' ', '') }
+  if (state) params.state = state.replaceAll(' ', '')
+  else params.state = 'none'
   router.push({
     name: 'city.page',
-    params: {
-      state: state.replaceAll(' ', ''),
-      city: city.replaceAll(' ', ''),
-    },
+    params,
     query: { lat, lng, preview: 1 },
   })
 }

@@ -5,6 +5,7 @@ import EmptyState from '@/components/EmptyState.vue'
 import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import type { city } from '@/shared'
 
 const router = useRouter()
 const savedCities = ref([])
@@ -18,7 +19,7 @@ function previewCity({ id, city, state, coords }: any) {
   })
 }
 
-function removeCity(city: any) {
+function removeCity(city: never) {
   savedCities.value.splice(savedCities.value.indexOf(city), 1)
   localStorage.savedCities = JSON.stringify(savedCities.value)
 }
