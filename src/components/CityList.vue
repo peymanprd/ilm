@@ -9,7 +9,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const savedCities = ref([])
 
-function previewCity({ id, city, state, coords }) {
+function previewCity({ id, city, state, coords }: any) {
   const { lat, lng } = coords
   router.push({
     name: 'city.page',
@@ -18,7 +18,7 @@ function previewCity({ id, city, state, coords }) {
   })
 }
 
-function removeCity(city) {
+function removeCity(city: any) {
   savedCities.value.splice(savedCities.value.indexOf(city), 1)
   localStorage.savedCities = JSON.stringify(savedCities.value)
 }

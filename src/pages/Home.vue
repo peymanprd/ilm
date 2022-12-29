@@ -58,9 +58,9 @@ function getSearchResult() {
   }, waitTime)
 }
 
-function previewCity({ place_name, geometry }) {
-  const [city, state] = place_name.split(',')
-  const { coordinates } = geometry
+function previewCity(payload: any) {
+  const [city, state] = payload.place_name.split(',')
+  const { coordinates } = payload.geometry
   const [lng, lat] = coordinates
   router.push({
     name: 'city.page',
