@@ -1,4 +1,4 @@
-export function useLazyLoad(path: string): any {
+export function useLazyLoad(path: string) {
   if (!path) {
     console.warn('path is void!')
     return
