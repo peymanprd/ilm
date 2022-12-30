@@ -4,11 +4,12 @@ import Modal from '@/components/shared/Modal.vue'
 
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import type { queryCity } from '@/shared'
 
 const isActiveModal = ref(false)
 const toggleModal = () => (isActiveModal.value = !isActiveModal.value)
 
-const savedCities = ref([])
+const savedCities = ref([] as queryCity[])
 const route = useRoute()
 const router = useRouter()
 
@@ -20,7 +21,8 @@ function addCity() {
   }
   const { state, city } = route.params
   const { lat, lng } = route.query
-  const cityObj = {
+
+  const cityObj: queryCity | any = {
     id: Math.floor(Math.random() * 999),
     state,
     city,
@@ -37,7 +39,9 @@ function addCity() {
 }
 function removeCity() {
   const cities = JSON.parse(localStorage.savedCities)
-  const updatedCities = cities.filter((city) => city.id !== +route.query.id)
+  const updatedCities = cities.filter(
+    (city: queryCity) => city.id != route.query.id
+  )
   localStorage.savedCities = JSON.stringify(updatedCities)
   router.push('/')
 }

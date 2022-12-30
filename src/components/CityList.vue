@@ -5,10 +5,9 @@ import EmptyState from '@/components/EmptyState.vue'
 import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import type { city } from '@/shared'
 
 const router = useRouter()
-const savedCities = ref([])
+const savedCities = ref([] as any[])
 
 function previewCity({ id, city, state, coords }: any) {
   const { lat, lng } = coords
@@ -19,7 +18,7 @@ function previewCity({ id, city, state, coords }: any) {
   })
 }
 
-function removeCity(city: never) {
+function removeCity(city: any) {
   savedCities.value.splice(savedCities.value.indexOf(city), 1)
   localStorage.savedCities = JSON.stringify(savedCities.value)
 }
@@ -29,7 +28,8 @@ async function getCities() {
     savedCities.value = JSON.parse(localStorage.savedCities)
 
     const requests = []
-    for (let city of savedCities.value) {
+    let city: any
+    for (city of savedCities.value) {
       requests.push(
         axios.get(
           `https://api.openweathermap.org/data/2.5/weather?lat=${
