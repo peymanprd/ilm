@@ -5,13 +5,13 @@ const routes = [
   {
     path: '/',
     name: 'home.page',
-    component: useLazyLoad('../pages/Home.vue'),
+    component: () => import('../pages/Home.vue'),
     meta: { title: 'Home' },
   },
   {
     path: '/:state/:city',
     name: 'city.page',
-    component: useLazyLoad('../pages/City.vue'),
+    component: () => import('../pages/City.vue'),
     meta: { title: 'Weather' },
   },
 ]
