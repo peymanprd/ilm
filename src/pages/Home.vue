@@ -126,7 +126,7 @@ function selectHighlighted() {
           @keydown.up="highlightPrev"
           @keydown.enter.prevent="selectHighlighted"
           placeholder="search for a city or state"
-          class="py-3 px-7 w-full bg-transparent placeholder-zinc-500 border-b border-zinc-200 dark:border-zinc-700 focus:border-primary dark:focus:border-primary dark:text-zinc-300 outline-0 transition"
+          class="py-3 px-7 w-full bg-transparent !outline-none placeholder-zinc-500 border-b border-zinc-200 dark:border-zinc-700 focus:border-primary dark:focus:border-primary dark:text-zinc-300 transition"
         />
       </div>
       <ul
